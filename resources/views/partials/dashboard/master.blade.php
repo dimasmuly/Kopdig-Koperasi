@@ -4,7 +4,11 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ $page }}</h1>
     {{-- Main Content --}}
-    @yield('content')
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            @yield('content')
+        </div>
+    </div>
 </div>
 <!-- /.container-fluid -->
 
