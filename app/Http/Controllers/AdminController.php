@@ -65,4 +65,15 @@ class AdminController extends Controller
             'page' => 'Loan',
         ]);
     }
+
+    public function profile_cooprative()
+    {
+        $data = session()->get('data');
+        $user = $data['user'];
+        return view('admin.cooprative.index', [
+            'user' => $user,
+            'title' => 'Admin',
+            'page' => 'Loan',
+        ]);
+    }
 }

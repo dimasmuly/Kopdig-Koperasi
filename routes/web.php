@@ -27,5 +27,6 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/admin/market', [AdminController::class, 'market'])->name('admin.market');
         Route::get('/admin/stash', [AdminController::class, 'stash'])->name('admin.stash');
         Route::get('/admin/loan', [AdminController::class, 'loan'])->name('admin.loan');
+        Route::get('/admin/profile-cooprative', [AdminController::class, 'profile_cooprative'])->name('admin.profile_cooprative');
     });
 });
