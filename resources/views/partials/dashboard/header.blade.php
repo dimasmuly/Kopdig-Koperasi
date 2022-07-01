@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"> --}}
 
 </head>
 
@@ -193,8 +193,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user['name'] }}</span>
+                                <img class="img-profile rounded-circle" src="{{ $user['profile_photo_path'] ? 'http://127.0.0.1:8000' . $user['profile_photo_path'] : asset('img/user-image.jpeg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

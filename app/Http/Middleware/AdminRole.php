@@ -19,7 +19,7 @@ class AdminRole
         // get session
         $data = session()->get('data');
         if(!isset($data['user']['role_id']) || $data['user']['role_id'] != 2) {
-            return back()->with('error', 'You are not authorized to access this page.');
+            return redirect()->route('login')->with('error', 'You are not authorized to access this page.');
         } else {
             return $next($request);
         }
