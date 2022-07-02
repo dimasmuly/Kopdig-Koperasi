@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="order">
+                    <a class="nav-link menu-link" href="{{ route('dashboard.order') }}">
                         <i class="ri-money-dollar-circle-line"></i> <span data-key="t-order">Order</span>
                     </a>
                 </li>

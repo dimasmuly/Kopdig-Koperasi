@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -21,6 +22,7 @@ Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.login
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/market', [MarketController::class, 'index'])->name('dashboard.market');
+    Route::get('dashboard/order', [OrderController::class, 'index'])->name('dashboard.order');
 });
