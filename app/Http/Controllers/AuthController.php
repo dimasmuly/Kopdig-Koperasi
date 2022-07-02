@@ -1,44 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
+    public function index()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
-        // Validate the form data
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email:dns',
-            'password' => 'required|min:6'
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is invalid',
+            'password.required' => 'Password is required',
         ]);
 
-        $response = Http::post('http://localhost:8000/api/login', $credentials);
-        $data = $response->json();
-        if($data['meta']['code'] == 200) {
-            // set session data
-            $request->session()->put('data', [
-                'token' => $data['data']['token'],
-                'user' => $data['data']['user']
-            ]);
-            $request->session()->save();
-            return redirect()->intended('admin');
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard');
         } else {
-            return back()->with('error', $data['data']);
+            return redirect()->route('auth.login')->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid credentials']);
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        // remove session data
-        session()->forget('data');
-        session()->save();
-        return redirect()->route('login');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('auth.login');
     }
 }
