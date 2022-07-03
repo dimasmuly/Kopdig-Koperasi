@@ -16,7 +16,7 @@ class OrderController extends Controller
         $products = Product::whereHas('businessDetail', function ($query) use ($user) {
             $query->where('cooperative_id', $user->cooperative_id);
         })->get();
-        return json_decode($products);
+        // return json_decode($products);
         // get transaction detail and display product name in transaction table
         $transactionDetails = TransactionDetail::with([
             'transaction',
@@ -26,7 +26,8 @@ class OrderController extends Controller
         return view('order.index', [
             'user' => $user,
             'title' => $title,
-            'orders' => $transactionDetails
+            'orders' => $transactionDetails,
+            'products' => $products
         ]);
     }
 }
