@@ -28,7 +28,7 @@ class TransactionDetail extends Model
     // belongsTo (one to one) relationship with Transaction
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class);
+        return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 
     // belongsTo (one to one) relationship with User

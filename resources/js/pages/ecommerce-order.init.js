@@ -209,6 +209,8 @@ function SearchData() {
     var payment = document.getElementById("idPayment").value;
     var pickerVal = document.getElementById("demo-datepicker").value;
 
+    // console.log(isstatus);
+
     var date1 = pickerVal.split(" to ")[0];
     var date2 = pickerVal.split(" to ")[1];
 
