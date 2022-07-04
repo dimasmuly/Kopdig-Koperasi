@@ -29,7 +29,8 @@
                         <div class="flex-grow-1 overflow-hidden ms-3">
                             <p class="text-uppercase fw-semibold text-muted text-truncate mb-3">Total Administrators</p>
                             <div class="d-flex align-items-center mb-3">
-                                <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="{{ $total_administrator }}">{{ $total_administrator }}</span>
+                                <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
+                                        data-target="{{ $total_administrator }}">{{ $total_administrator }}</span>
                                 </h4>
                                 <span class="badge badge-soft-warning fs-12"><i
                                         class=" ri-user-line fs-13 align-middle me-1"></i>{{ $total_administrator }}</span>
@@ -81,15 +82,15 @@
                                     stroke-linejoin="round" class="feather feather-shopping-cart text-danger">
                                     <circle cx="9" cy="21" r="1"></circle>
                                     <circle cx="20" cy="21" r="1"></circle>
-                                    <path
-                                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                                 </svg>
                             </span>
                         </div>
                         <div class="flex-grow-1 overflow-hidden ms-3">
                             <p class="text-uppercase fw-semibold text-muted text-truncate mb-3">Orders</p>
                             <div class="d-flex align-items-center mb-3">
-                                <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value" data-target="{{ $total_order }}">{{ $total_order }}</span>
+                                <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
+                                        data-target="{{ $total_order }}">{{ $total_order }}</span>
                                 </h4>
                                 <span class="badge badge-soft-danger fs-12"><i
                                         class="ri-send-plane-2-line fs-13 align-middle me-1"></i>{{ $percentage_order }}</span>
