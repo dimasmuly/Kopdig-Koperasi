@@ -151,8 +151,13 @@
                     <div class="row">
                         <div class="col-xl-8">
                             <label for="productname-field" class="form-label">Product</label>
-                            <input type="text" class="form-control" id="productname-field">
-                            <small class="text-primary">Price : IDR <span id="productprice-lable" class="text-primary"></span></small>
+                            <select class="form-select mb-3" id="productname-field" aria-label="Default select example">
+                                @foreach ($products as $product)
+                                    <option value="{{ $product['id'] }}">{{ $product['name'] }}</option>
+                                @endforeach
+                            </select>
+                            <small class="text-primary">Price : IDR <span id="productprice-lable"
+                                    class="text-primary"></span></small>
                         </div>
                         <div class="col-xl">
                             <label for="quantity-field" class="form-label">Quantity</label>
@@ -160,13 +165,30 @@
                         </div>
                     </div>
                     <div class="mt-2">
+                        <label for="note-field">Note</label>
+                        <input type="text" class="form-control" id="note-field">
+                    </div>
+                    <div class="mt-2">
+                        <label for="destinationaddress-field">Destination Address</label>
+                        <textarea  class="form-control" id="destinationaddress-field" cols="20" rows="5"></textarea>
+                    </div>
+                    <div class="mt-2">
+                        <label for="paymentmethod-field" class="form-label">Payment Method</label>
+                        <select class="form-select mb-3" id="paymentmethod-field" aria-label="Default select example">
+                            @foreach ($payment_methods as $payment_method)
+                                <option value="{{ $payment_method['id'] }}">{{ $payment_method['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-2">
                         <label for="totalpay-field" class="form-label">Total Pay</label>
                         <input type="number" class="form-control" id="totalpay-field" disabled>
                     </div>
+                    <input type="hidden" id="transactionid-field">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary ">Save Changes</button>
+                    <button type="button" class="btn btn-primary" id="btn-update">Save Changes</button>
                 </div>
 
             </div><!-- /.modal-content -->
@@ -196,21 +218,38 @@
                         $('#orderdate-field').val(dateString);
                         $('#customername-field').val(data.user.name);
                         $('#status-field').val(data.status);
-                        $('#productname-field').val(data.transaction.product.name);
+                        $('#productname-field').val(data.transaction.product.id);
                         $('#productprice-lable').html(data.transaction.product.price);
                         $('#quantity-field').val(data.transaction.quantity);
                         $('#totalpay-field').val(data.total_pay);
+                        $('#note-field').val(data.transaction.note);
+                        $('#paymentmethod-field').val(data.payment_method_id);
+                        $('#transactionid-field').val(data.id);
+                        $('#destinationaddress-field').val(data.transaction.destination_address);
                     }
                 });
-            })
-
+            });
+            
             // update value of total pay when change quantity
             $('#quantity-field').on('input', function() {
                 const quantity = $(this).val();
                 const price = $('#productprice-lable').html();
                 const totalPay = quantity * price;
                 $('#totalpay-field').val(totalPay);
-            })
-        })
+            });
+
+            // update order when click button update
+            $('#btn-update').on('click', function() {
+                const id = $('#transactionid-field').val();
+                const created_at = $('#orderdate-field').val();
+                const status = $('#status-field').val();
+                const product_id = $('#productname-field').val();
+                const quantity = $('#quantity-field').val();
+                const note = $('#note-field').val();
+                const payment_method_id = $('#paymentmethod-field').val();
+                const total_pay = $('#totalpay-field').val();
+                const destination_address = $('#destinationaddress-field').val();
+            });
+        });
     </script>
 @endsection

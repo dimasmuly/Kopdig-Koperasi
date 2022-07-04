@@ -48,4 +48,10 @@ class TransactionDetail extends Model
     {
         return $this->belongsTo(Cooperative::class);
     }
+
+    // belongsTo (one to one) relationship with PaymentMethod
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }

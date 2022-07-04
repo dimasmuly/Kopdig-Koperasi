@@ -40,7 +40,7 @@
                             <div class="alert alert-danger alert-dismissible alert-solid alert-label-icon fade show mb-xl-0"
                                 role="alert">
                                 <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
-                                 @foreach ($errors->all() as $error)
+                                @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"

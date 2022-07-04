@@ -8,6 +8,7 @@ use App\Models\Cooperative;
 use App\Models\Courier;
 use App\Models\Loan;
 use App\Models\LoanType;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Role;
@@ -28,6 +29,62 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        PaymentMethod::insert(
+            [[
+                'name' => 'BRI',
+                'description' => 'BRI',
+                'thumbnail' => '/images/payment_methods/bri.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Mandiri',
+                'description' => 'Mandiri',
+                'thumbnail' => '/images/payment_methods/mandiri.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'BCA',
+                'description' => 'BCA',
+                'thumbnail' => '/images/payment_methods/bca.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'BNI',
+                'description' => 'BNI',
+                'thumbnail' => '/images/payment_methods/bni.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'CIMB',
+                'description' => 'CIMB',
+                'thumbnail' => '/images/payment_methods/cimb.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Maybank',
+                'description' => 'Maybank',
+                'thumbnail' => '/images/payment_methods/maybank.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of China',
+                'description' => 'Bank of China',
+                'thumbnail' => '/images/payment_methods/bank_of_china.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of Indonesia',
+                'description' => 'Bank of Indonesia',
+                'thumbnail' => '/images/payment_methods/bank_of_indonesia.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of Tokyo',
+                'description' => 'Bank of Tokyo',
+                'thumbnail' => '/images/payment_methods/bank_of_tokyo.png',
+                'credit_number' => '123456789',
+            ],]
+        );
 
         // insert multiple data in roles
         Role::insert([
@@ -66,5 +123,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'success',
             'shipping_fee' => 10000,
         ]);
+
+        
     }
 }

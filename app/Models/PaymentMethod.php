@@ -15,4 +15,11 @@ class PaymentMethod extends Model
         'thumbnail',
         'credit_number'
     ];
+
+    // RELATIONSHIPS
+
+    public function transactionDetail()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 }

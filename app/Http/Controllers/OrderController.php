@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessDetail;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
@@ -13,9 +15,13 @@ class OrderController extends Controller
         $user = auth()->user();
         $title = 'Order';
         // get all product of cooperative
-        $products = Product::whereHas('businessDetail', function ($query) use ($user) {
+        $products = BusinessDetail::whereHas('business', function ($query) use ($user) {
             $query->where('cooperative_id', $user->cooperative_id);
-        })->get();
+        })->with('products')->get();
+        // merge all product to one array
+        $products = $products->flatMap(function ($item) {
+            return $item->products;
+        });
         // return json_decode($products);
         // get transaction detail and display product name in transaction table
         $transactionDetails = TransactionDetail::with([
@@ -23,11 +29,14 @@ class OrderController extends Controller
             'transaction.product',
             'user'
         ])->where('cooperative_id', $user->cooperative_id)->paginate(10);
+
+        $payment_method = PaymentMethod::all();
         return view('order.index', [
             'user' => $user,
             'title' => $title,
             'orders' => $transactionDetails,
-            'products' => $products
+            'products' => $products,
+            'payment_methods' => $payment_method
         ]);
     }
 }

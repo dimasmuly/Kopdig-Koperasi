@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/order/{id}', [OrderController::class, 'fetch'])->name('api.order.show');
+Route::post('/order/{id}', [OrderController::class, 'update'])->name('api.order.update', 'id');
 
 

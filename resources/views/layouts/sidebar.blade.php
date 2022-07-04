@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="Logout">
+                    <a class="nav-link menu-link" href="/logout">
                         <i class="ri-logout-box-line"></i> <span data-key="t-Logout">Logout</span>
                     </a>
                 </li>
