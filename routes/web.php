@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketController;
@@ -25,4 +26,6 @@ Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(funct
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/market', [MarketController::class, 'index'])->name('dashboard.market');
     Route::get('dashboard/order', [OrderController::class, 'index'])->name('dashboard.order');
+    Route::get('dashboard/administrator', [AdministratorController::class, 'index'])->name('dashboard.administrator');
+    Route::get('dashboard/administrator/profile', [AdministratorController::class, 'profile'])->name('dashboard.administrator.profile');
 });
