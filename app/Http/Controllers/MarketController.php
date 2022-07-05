@@ -19,6 +19,7 @@ class MarketController extends Controller
             ['cooperative_id', $user->cooperative_id],
             ['status', 'success'],
         ])->count();
+
         $total_customer = TransactionDetail::where([
             ['cooperative_id', $user->cooperative_id],
             ['status', 'success'],

@@ -39,6 +39,8 @@
 
     <!-- JAVASCRIPT -->
     @include('layouts.vendor-scripts')
+    @include('sweetalert::alert')
+
 </body>
 
 </html>

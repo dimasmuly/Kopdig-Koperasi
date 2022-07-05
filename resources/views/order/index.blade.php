@@ -83,7 +83,9 @@
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editOrder"
                                                     class="btn btn-success w-sm btn-edit"
                                                     data-id="{{ $order['id'] }}">Edit</a>
-                                                <a href="" class="btn btn-danger w-sm">Remove</a>
+                                                <a href="/api/order/{{ $order['id'] }}/delete" onclick="return(
+                                                    confirm('Are you sure you want to delete this order?')
+                                                )" class="btn btn-danger w-sm btn-delete">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -121,6 +123,7 @@
             </div>
         </div>
     </div>
+
     {{-- Modal Edit order --}}
     <div id="editOrder" class="modal fade" tabindex="-1" aria-labelledby="editOrderLabel" aria-hidden="true"
         style="display: none;">
@@ -130,66 +133,76 @@
                     <h5 class="modal-title" id="editOrderLabel">Modal Heading</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div>
-                        <label for="orderdate-field" class="form-label">Order Date</label>
-                        <input type="date" class="form-control" id="orderdate-field">
-                    </div>
-                    <div class="mt-2">
-                        <label for="customername-field" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customername-field" disabled>
-                    </div>
-                    <div class="mt-2">
-                        <label for="status-field" class="form-label">Status</label>
-                        <select class="form-select mb-3" id="status-field" aria-label="Default select example">
-                            <option selected="">Select your Status </option>
-                            <option value="success">Success</option>
-                            <option value="pending">Pending</option>
-                            <option value="cancel">Cancel</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <label for="productname-field" class="form-label">Product</label>
-                            <select class="form-select mb-3" id="productname-field" aria-label="Default select example">
-                                @foreach ($products as $product)
-                                    <option value="{{ $product['id'] }}">{{ $product['name'] }}</option>
+                <form action="{{ route('api.order.update') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <input type="hidden" id="transactionid-field" name="transaction_id">
+                        <input type="hidden" id="detailtransactionid-field" name="detail_transaction_id">
+                        <div>
+                            <label for="orderdate-field" class="form-label">Order Date</label>
+                            <input type="date" class="form-control" id="orderdate-field" name="order_date">
+                        </div>
+                        <div class="mt-2">
+                            <label for="customername-field" class="form-label">Customer Name</label>
+                            <div class="mt-2">
+                                <input type="text" class="form-control" id="customername-field" disabled
+                                    name="customer_name">
+                            </div>
+                            <label for="status-field" class="form-label">Status</label>
+                            <select class="form-select mb-3" name="status" id="status-field"
+                                aria-label="Default select example">
+                                <option selected="">Select your Status </option>
+                                <option value="success">Success</option>
+                                <option value="pending">Pending</option>
+                                <option value="cancel">Cancel</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <label for="productname-field" class="form-label">Product</label>
+                                <select class="form-select mb-3" name="product_id" id="productname-field"
+                                    aria-label="Default select example">
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product['id'] }}">{{ $product['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <small class="text-primary">Price : IDR <span id="productprice-lable"
+                                        class="text-primary"></span></small>
+                            </div>
+                            <div class="col-xl">
+                                <label for="quantity-field" class="form-label">Quantity</label>
+                                <input type="number" name="quantity" class="form-control" id="quantity-field">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="note-field">Note</label>
+                            <input type="text" class="form-control" name="note" id="note-field">
+                        </div>
+                        <div class="mt-2">
+                            <label for="destinationaddress-field">Destination Address</label>
+                            <textarea class="form-control" id="destinationaddress-field" name="destination_address" cols="20"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label for="paymentmethod-field" class="form-label">Payment Method</label>
+                            <select class="form-select mb-3" id="paymentmethod-field" name="payment_method_id"
+                                aria-label="Default select example">
+                                @foreach ($payment_methods as $payment_method)
+                                    <option value="{{ $payment_method['id'] }}">{{ $payment_method['name'] }}
+                                    </option>
                                 @endforeach
                             </select>
-                            <small class="text-primary">Price : IDR <span id="productprice-lable"
-                                    class="text-primary"></span></small>
                         </div>
-                        <div class="col-xl">
-                            <label for="quantity-field" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity-field">
+                        <div class="mt-2">
+                            <label for="totalpay-field" class="form-label">Total Pay</label>
+                            <input type="number" class="form-control" name="total_pay" id="totalpay-field" readonly>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <label for="note-field">Note</label>
-                        <input type="text" class="form-control" id="note-field">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
-                    <div class="mt-2">
-                        <label for="destinationaddress-field">Destination Address</label>
-                        <textarea  class="form-control" id="destinationaddress-field" cols="20" rows="5"></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <label for="paymentmethod-field" class="form-label">Payment Method</label>
-                        <select class="form-select mb-3" id="paymentmethod-field" aria-label="Default select example">
-                            @foreach ($payment_methods as $payment_method)
-                                <option value="{{ $payment_method['id'] }}">{{ $payment_method['name'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mt-2">
-                        <label for="totalpay-field" class="form-label">Total Pay</label>
-                        <input type="number" class="form-control" id="totalpay-field" disabled>
-                    </div>
-                    <input type="hidden" id="transactionid-field">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-update">Save Changes</button>
-                </div>
+                </form>
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -225,30 +238,19 @@
                         $('#note-field').val(data.transaction.note);
                         $('#paymentmethod-field').val(data.payment_method_id);
                         $('#transactionid-field').val(data.id);
-                        $('#destinationaddress-field').val(data.transaction.destination_address);
+                        $('#destinationaddress-field').val(data.transaction
+                        .destination_address);
+                        $('#detailtransactionid-field').val(data.transaction.id);
                     }
                 });
             });
-            
+
             // update value of total pay when change quantity
             $('#quantity-field').on('input', function() {
                 const quantity = $(this).val();
                 const price = $('#productprice-lable').html();
                 const totalPay = quantity * price;
                 $('#totalpay-field').val(totalPay);
-            });
-
-            // update order when click button update
-            $('#btn-update').on('click', function() {
-                const id = $('#transactionid-field').val();
-                const created_at = $('#orderdate-field').val();
-                const status = $('#status-field').val();
-                const product_id = $('#productname-field').val();
-                const quantity = $('#quantity-field').val();
-                const note = $('#note-field').val();
-                const payment_method_id = $('#paymentmethod-field').val();
-                const total_pay = $('#totalpay-field').val();
-                const destination_address = $('#destinationaddress-field').val();
             });
         });
     </script>
