@@ -18,12 +18,35 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible alert-solid alert-label-icon fade show mb-xl-0"
+                    role="alert">
+                    <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row g-2">
-                <div class="col-sm-4">
-                    <div class="search-box">
-                        <input type="text" class="form-control"
-                            placeholder="Search for name, tasks, projects or something...">
-                        <i class="ri-search-line search-icon"></i>
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form action="{{ route('dashboard.admin.search') }}" method="POST">
+                                {{ csrf_field() }}
+                                <div class="search-box">
+                                    <input type="hidden" name="cooperative_id" value="{{ $cooperative_id }}">
+                                    <input type="text" class="form-control" placeholder="Search for name" id="keyword"
+                                        name="keyword"></i>
+                                </div>
+                        </div>
+                        <div class="col-md">
+                            <button type="submit" class="btn btn-primary"><i class="ri  ri-search-line"></i></button>
+                            </form>
+                            <a href="{{ route('dashboard.administrator') }}" class="ms-2 btn btn-success"><i
+                                    class="ri ri-refresh-line"></i></a>
+                        </div>
                     </div>
                 </div>
                 <!--end col-->
@@ -58,7 +81,22 @@
                                 </div>
                                 <div class="card-body p-4">
                                     <div class="row align-items-center team-row">
-
+                                        <div class="col team-settings">
+                                            <div class="row">
+                                                <div class="col-md-12 text-end dropdown">
+                                                    <a href="javascript:void(0);" id="dropdownMenuLink2"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="dropdownMenuLink2">
+                                                        <li><a class="dropdown-item" href="/api/admin/delete/{{ $administrator['id'] }}" onclick="return(confirm('Are you sure?'))"><i
+                                                                    class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-4 col">
                                             <div class="team-profile-img">
                                                 <div class="avatar-lg img-thumbnail rounded-circle flex-shrink-0">
@@ -136,43 +174,63 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form action="{{ route('api.admin.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="cooperative_id" value="{{ $cooperative_id }}">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                <label for="teammembersName" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="teammembersName"
+                                                <label for="name" class="form-label">Name</label>
+                                                <input type="text" name="name" class="form-control" id="name"
                                                     placeholder="Enter name">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email"
+                                                <input type="email" name="email" class="form-control" id="email"
                                                     placeholder="Enter email">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="gender" class="form-label">Gender</label>
+                                                <select name="gender" id="gender" class="form-select">
+                                                    <option value="L">Laki Laki</option>
+                                                    <option value="P">Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Address</label>
+                                                <textarea name="address" id="address" cols="30" rows="3" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="roles" class="form-label">Role</label>
-                                                <select name="roles" id="roles" class="form-select">
+                                                <label for="role_id" class="form-label">Role</label>
+                                                <select name="role_id" id="role_id" class="form-select">
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+                                                        <option value="{{ $role['id'] }}">{{ $role['name'] }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="phone" class="form-label">Phone</label>
-                                                <input type="number" class="form-control" id="phone"
-                                                    placeholder="Phone Number">
+                                                <label for="phone_number" class="form-label">Phone</label>
+                                                <input type="number" name="phone_number" class="form-control"
+                                                    id="phone_number" placeholder="Phone Number">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="mb-4">
                                                 <label for="profile_photo_path" class="form-label">Profile Images</label>
-                                                <input class="form-control" type="file" id="profile_photo_path">
+                                                <input class="form-control" name="profile_photo_path" type="file"
+                                                    id="profile_photo_path">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -217,12 +275,28 @@
                                                     placeholder="Enter email">
                                             </div>
                                         </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="gender" class="form-label">Gender</label>
+                                                <select name="gender" id="gender" class="form-select">
+                                                    <option value="L">Laki Laki</option>
+                                                    <option value="P">Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Address</label>
+                                                <textarea name="address" id="address" cols="30" rows="3" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="role_id" class="form-label">Role</label>
                                                 <select name="role_id" id="role_id" class="form-select">
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role['id'] }}">{{ $role['name'] }}</option>
+                                                        <option value="{{ $role['id'] }}">{{ $role['name'] }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -237,7 +311,8 @@
                                         <div class="col-lg-12">
                                             <div class="mb-4">
                                                 <label for="profile_photo_path" class="form-label">Profile Images</label>
-                                                <input class="form-control" name="profile_photo_path" type="file" id="profile_photo_path">
+                                                <input class="form-control" name="profile_photo_path" type="file"
+                                                    id="profile_photo_path">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -337,6 +412,8 @@
                         $('#viewmember #email').val(data.email);
                         $('#viewmember #role_id').val(data.role_id);
                         $('#viewmember #phone_number').val(data.phone_number);
+                        $('#viewmember #gender').val(data.gender == 'L' ? 'L' : 'P');
+                        $('#viewmember #address').val(data.address);
                         $('#viewmember #id').val(data.id);
                     }
                 });

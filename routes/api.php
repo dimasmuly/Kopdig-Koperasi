@@ -22,4 +22,6 @@ Route::get('/order/{id}/delete', [OrderController::class, 'delete'])->name('api.
 
 Route::get('/admin/{id}', [AdminController::class, 'fetch'])->name('api.admin.show', 'id');
 Route::post('/admin/update', [AdminController::class, 'update'])->name('api.admin.update');
+Route::post('/admin/store', [AdminController::class, 'store'])->name('api.admin.store');
+Route::get('/admin/delete/{id}', [AdminController::class, 'delete'])->name('api.admin.delete');
 

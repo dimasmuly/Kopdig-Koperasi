@@ -19,6 +19,7 @@ class AdministratorController extends Controller
         return view('administrator.index', [
             'user' => $user,
             'title' => $title,
+            'cooperative_id' => $user->cooperative_id,
             'administrators' => $administrators,
             'roles' => $roles
         ]);
