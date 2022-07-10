@@ -25,7 +25,8 @@ class AdminController extends Controller
             'role_id' => 'required|exists:roles,id',
             'phone_number' => 'required',
             'address' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'is_verified' => 'required'
         ]);
         try {
             $user = User::find($request->id);
@@ -52,6 +53,7 @@ class AdminController extends Controller
                 $user->gender = $request->gender;
                 $user->phone_number = $request->phone_number;
                 $user->profile_photo_path = '/profile_picture/' . $file_name;
+                $user->is_verified = $request->is_verified;
                 $user->save();
             } else {
                 $user->name = $request->name;
@@ -60,6 +62,7 @@ class AdminController extends Controller
                 $user->address = $request->address;
                 $user->gender = $request->gender;
                 $user->phone_number = $request->phone_number;
+                $user->is_verified = $request->is_verified;
                 $user->save();
             }
             return back()->with('success', 'User updated successfully');

@@ -12,15 +12,21 @@ class AdministratorController extends Controller
     {
         $user = auth()->user();
         $title = 'Administrator';
-        $administrators = User::where([
+        $active_administrators = User::where([
             'cooperative_id' => $user->cooperative_id,
+            'is_verified' => 1,
+        ])->get();
+        $inactive_administrators = User::where([
+            'cooperative_id' => $user->cooperative_id,
+            'is_verified' => 0,
         ])->get();
         $roles = Role::all();
         return view('administrator.index', [
             'user' => $user,
             'title' => $title,
             'cooperative_id' => $user->cooperative_id,
-            'administrators' => $administrators,
+            'active_administrators' => $active_administrators,
+            'inactive_administrators' => $inactive_administrators,
             'roles' => $roles
         ]);
     }
