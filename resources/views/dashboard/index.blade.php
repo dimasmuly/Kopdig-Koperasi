@@ -36,7 +36,8 @@
                                         class=" ri-user-line fs-13 align-middle me-1"></i>{{ $total_administrator }}</span>
                             </div>
                             <p class="text-muted text-truncate mb-0">Progress this month</p>
-                            <a class="btn btn-soft-secondary btn-sm" type="button" href="views/administrator/business">View</a>
+                            <a class="btn btn-soft-secondary btn-sm" type="button"
+                                href="dashboard/administrator/business/detailBusiness">View</a>
                         </div>
                     </div>
                 </div><!-- end card body -->
@@ -61,7 +62,8 @@
                             <p class="text-uppercase fw-semibold text-truncate text-muted mb-3">Total Revenue</p>
                             <div class="d-flex align-items-center mb-3">
                                 <h4 class="fs-4 flex-grow-1 mb-0"><span class="counter-value"
-                                        data-target="{{ $total_revenue }}">{{ number_format($total_revenue) }}</span></h4>
+                                        data-target="{{ $total_revenue }}">{{ number_format($total_revenue) }}</span>
+                                </h4>
                                 <span class="badge badge-soft-success fs-12"><i
                                         class="ri-arrow-up-s-line fs-13 align-middle me-1"></i>{{ number_format($percentage_revenue) }}%</span>
                             </div>
@@ -94,7 +96,8 @@
                                         data-target="{{ $total_order }}">{{ $total_order }}</span>
                                 </h4>
                                 <span class="badge badge-soft-danger fs-12"><i
-                                        class="ri-send-plane-2-line fs-13 align-middle me-1"></i>{{ number_format($percentage_order) }} %</span>
+                                        class="ri-send-plane-2-line fs-13 align-middle me-1"></i>{{ number_format($percentage_order) }}
+                                    %</span>
                             </div>
                             <p class="text-muted text-truncate mb-0">Orders this month</p>
                         </div>

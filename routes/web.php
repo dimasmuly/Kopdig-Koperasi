@@ -31,7 +31,5 @@ Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(funct
 
     Route::get('dashboard/administrator', [AdministratorController::class, 'index'])->name('dashboard.administrator');
     Route::post('dashboard/administrator/search', [AdminController::class, 'search'])->name('dashboard.admin.search');
-    
-    Route::get('views/administrator/business/detailBusiness', [BusinessController::class, 'index'])->name('administrator.business.detailBusiness');
+    Route::get('dashboard/administrator/business/detailBusiness', [BusinessController::class, 'index'])->name('dashboard.business.detailBusiness');
 });
-
