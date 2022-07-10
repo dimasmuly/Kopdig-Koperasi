@@ -14,7 +14,7 @@
 
     <div class="card">
         <div class="card-body">
-            <ul class="nav nav-pills nav-justified mb-3" role="tablist">
+            <ul class="nav nav-pills nav-success nav-justified mb-3" role="tablist">
                 <li class="nav-item waves-effect waves-light">
                     <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-activeadmin" role="tab"
                         aria-selected="true">
