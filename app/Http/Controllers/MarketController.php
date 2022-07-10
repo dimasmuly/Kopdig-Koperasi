@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessDetail;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 
@@ -20,16 +21,13 @@ class MarketController extends Controller
             ['status', 'success'],
         ])->count();
 
-        $total_customer = TransactionDetail::where([
-            ['cooperative_id', $user->cooperative_id],
-            ['status', 'success'],
-        ])->count('user_id');
+        $total_business = BusinessDetail::where('cooperative_id', $user->cooperative_id)->count();
         return view('market.index', [
             'user' => $user,
             'title' => $title,
             'total_earnings' => $total_earnings,
             'total_order' => $total_order,
-            'total_customer' => $total_customer
+            'total_business' => $total_business
         ]);
     }
 }
