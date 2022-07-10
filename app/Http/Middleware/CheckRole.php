@@ -18,7 +18,8 @@ class CheckRole
     {
        if(in_array($request->user()->role_id, $role_id)) {
            return $next($request);
-       } 
-        return redirect()->route('auth.login')->withErrors(['email' => 'You are not authorized to access this page', 'password' => 'You are not authorized to access this page']);
+       } else {
+           return redirect()->route('auth.logout')->with('error', 'You are not authorized to access this page.');
+       }
     }
 }

@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="/logout">
+                    <a class="nav-link menu-link" href="/logout" onclick="return(confirm('Are you sure?'))">
                         <i class="ri-logout-box-line"></i> <span data-key="t-Logout">Logout</span>
                     </a>
                 </li>
