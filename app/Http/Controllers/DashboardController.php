@@ -35,7 +35,9 @@ class DashboardController extends Controller
             $total_pay_out_this_month_percentage = ($total_pay_out_this_month / $total_pay_out_yesterday) * 100;
             $total_pay_out_this_month_percentage = number_format($total_pay_out_this_month_percentage, 2);
 
-            dd($total_pay_out_this_month_percentage);
+            if ($total_pay_out_this_month_percentage > 100) {
+                $total_pay_out_this_month_percentage = 100;
+            }
         }
         // ORDER
         $total_order = TransactionDetail::where('cooperative_id', $user->cooperative_id)->where([

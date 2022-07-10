@@ -26,30 +26,25 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'text-success' : '' }}" href="{{ route('dashboard') }}">
                         <i class="ri-home-line"></i> <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Chairman</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard.market') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.market') ? 'text-success' : '' }}" href="{{ route('dashboard.market') }}">
                         <i class="ri-store-line"></i> <span data-key="t-market">Market</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard.order') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.order') ? 'text-success' : '' }}" href="{{ route('dashboard.order') }}">
                         <i class="ri-money-dollar-circle-line"></i> <span data-key="t-order">Order</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard.administrator') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.administrator') ? 'text-success' : '' }}" href="{{ route('dashboard.administrator') }}">
                         <i class="ri-user-line"></i> <span data-key="t-Administrator">Administrator</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="Setting">
-                        <i class=" ri-settings-line"></i> <span data-key="t-Setting">Setting</span>
                     </a>
                 </li>
                 <li class="nav-item">
