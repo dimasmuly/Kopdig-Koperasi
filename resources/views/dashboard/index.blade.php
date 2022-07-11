@@ -36,8 +36,7 @@
                                         class=" ri-user-line fs-13 align-middle me-1"></i>{{ $total_administrator }}</span>
                             </div>
                             <p class="text-muted text-truncate mb-0">Progress this month</p>
-                            <a class="btn btn-soft-secondary btn-sm" type="button"
-                                href="dashboard/administrator/business/detailBusiness">View</a>
+
                         </div>
                     </div>
                 </div><!-- end card body -->
