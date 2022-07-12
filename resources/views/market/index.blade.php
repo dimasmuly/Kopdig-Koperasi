@@ -87,54 +87,7 @@
                 </div><!-- end card body -->
             </div><!-- end card -->
         </div><!-- end col -->
-        {{-- Tharixs Add Grafic --}}
-        <div class="col-12">
-            <div class="card">
-                <div class="d-flex align-items-center">
-                    <div class="card-header border-0 ">
-                        <h4 class="card-title mb-0">Bussines Name</h4>
-                        <p class="text-muted sm mb-0 mt-1">Category Bussines</p>
-                    </div><!-- end card header -->
-                    <div>
-                        <a class="btn btn-primary" href="administrator/business/detailBusiness">View</a>
-                    </div>
-                </div>
 
-                <div class="card-header p-0 border-0 bg-soft-light">
-                    <div class="row g-0 text-center">
-                        <div class="col-6 col-sm-3">
-                            <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">7,585</span></h5>
-                                <p class="text-muted mb-0">Orders</p>
-                            </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-6 col-sm-3">
-                            <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1">$<span class="counter-value" data-target="22.89">22.89</span>k</h5>
-                                <p class="text-muted mb-0">Refenue</p>
-                            </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-6 col-sm-3">
-                            <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="367">367</span></h5>
-                                <p class="text-muted mb-0">Refunds</p>
-                            </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-6 col-sm-3">
-                            <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">18.92</span>%
-                                </h5>
-                                <p class="text-muted mb-0">Conversation Ratio</p>
-                            </div>
-                        </div>
-                        <!--end col-->
-                    </div>
-                </div><!-- end card header -->
-            </div><!-- end card -->
-        </div><!-- end col -->
     </div>
 
     <div class="row mt-4">
