@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 0, 1000000),
             'stock' => $this->faker->numberBetween(1, 100),
             'description' => $this->faker->text,
-            'thumbnail' => $this->faker->imageUrl(400, 400),
+            'thumbnail' => '/products/default.jpg',
             'production_date' => $this->faker->date('Y-m-d'),
             'discount' => $this->faker->randomFloat(2, 0, 100),
             'weight' => $this->faker->randomFloat(2, 0, 100),

@@ -24,6 +24,10 @@ class Product extends Model
         'voucher_id',
     ];
 
+    protected $append = [
+        'rating_value',
+    ];
+
     // RELATIONSHIP
 
     // belongsTo (one to one) relationship with BusinessDetail
@@ -41,7 +45,7 @@ class Product extends Model
     // hasOne (one to one) relationship with Voucher
     public function voucher()
     {
-        return $this->hasOne(Voucher::class, 'id');
+        return $this->hasOne(Voucher::class, 'id', 'voucher_id');
     }
 
     // hasMany (one to many) relationship with Whislist
@@ -65,7 +69,7 @@ class Product extends Model
 
     public function ratingValue()
     {
-        return $this->ratings->avg('rating_value') ?? 0.00;
+        return round($this->ratings()->avg('rating_value'), 1) ?? 0;
     }
 
     // total_transaction_count where transasction_details.status = 'success'

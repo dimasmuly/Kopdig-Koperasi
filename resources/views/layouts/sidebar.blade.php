@@ -33,7 +33,7 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Chairman</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.market') ? 'text-success' : '' }}" href="{{ route('dashboard.market') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.market*') ? 'text-success' : '' }}" href="{{ route('dashboard.market') }}">
                         <i class="ri-store-line"></i> <span data-key="t-market">Market</span>
                     </a>
                 </li>

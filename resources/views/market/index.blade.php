@@ -88,6 +88,36 @@
             </div><!-- end card -->
         </div><!-- end col -->
     </div>
+
+    <div class="row mt-4">
+        @foreach ($businesses as $business)
+            <div class="col-xl-3 col-lg-6">
+                <div class="card">
+                    <div class="card-body text-center p-4">
+
+                        <h5 class="mb-1 mt-4"><a href="/market/{{ $business['id'] }}/products"
+                                class="link-primary">{{ $business['business']['name'] }}</a>
+                        </h5>
+                        <p class="text-muted mb-4">{{ date('d-m-Y', strtotime($business['created_at'])) }}</p>
+
+                        <div class="row mt-4">
+                            <div class="col-lg border-end-dashed border-end">
+                                <h5>{{ count($business['products']) }}</h5>
+                                <span class="text-muted">Total Product</span>
+                            </div>
+                            {{-- <div class="col-lg-6">
+                                <h5>$73,426</h5>
+                                <span class="text-muted">Total Revenue</span>
+                            </div> --}}
+                        </div>
+                        <div class="mt-4">
+                            <a href="/market/{{ $business['id'] }}/products" class="btn btn-light w-100">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
