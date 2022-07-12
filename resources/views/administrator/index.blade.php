@@ -198,45 +198,47 @@
 
                                 <div class="offcanvas offcanvas-end border-0" tabindex="-1" id="offcanvasExample">
                                     <!--end offcanvas-header-->
-                                    <div class="offcanvas-body profile-offcanvas p-0">
-                                        <div class="team-cover">
-                                            <img src="{{ asset($administrator['profile_photo_path']) ?? asset('assets/images/users/avatar-1.jpg') }}"
-                                                alt="" class="img-fluid" />
-                                        </div>
-                                        <div class="p-3 text-center">
-                                            <img src="{{ asset($administrator['profile_photo_path']) ?? asset('assets/images/users/avatar-1.jpg') }}"
-                                                alt="" class="avatar-lg img-thumbnail rounded-circle mx-auto">
-                                            <div class="mt-3">
-                                                <h5 class="fs-15"><a href="javascript:void(0);"
-                                                        class="link-primary">{{ $administrator['name'] }}</a></h5>
-                                                <p class="text-muted">
-                                                    @switch($administrator['role_id'])
-                                                        @case(2)
-                                                            'Cooperative Chairman'
-                                                        @break
+                                    @foreach ($active_administrators as $administrator)
+                                        <div class="offcanvas-body profile-offcanvas p-0">
+                                            <div class="team-cover">
+                                                <img src="{{ asset($administrator['profile_photo_path']) ?? asset('assets/images/users/avatar-1.jpg') }}"
+                                                    alt="" class="img-fluid" />
+                                            </div>
+                                            <div class="p-3 text-center">
+                                                <img src="{{ asset($administrator['profile_photo_path']) ?? asset('assets/images/users/avatar-1.jpg') }}"
+                                                    alt="" class="avatar-lg img-thumbnail rounded-circle mx-auto">
+                                                <div class="mt-3">
+                                                    <h5 class="fs-15"><a href="javascript:void(0);"
+                                                            class="link-primary">{{ $administrator['name'] }}</a></h5>
+                                                    <p class="text-muted">
+                                                        @switch($administrator['role_id'])
+                                                            @case(2)
+                                                                'Cooperative Chairman'
+                                                            @break
 
-                                                        @case(3)
-                                                            'Member'
-                                                        @break
+                                                            @case(3)
+                                                                'Member'
+                                                            @break
 
-                                                        @case(5)
-                                                            'Secretary'
-                                                        @break
+                                                            @case(5)
+                                                                'Secretary'
+                                                            @break
 
-                                                        @case(6)
-                                                            'Treasurer'
-                                                        @break
+                                                            @case(6)
+                                                                'Treasurer'
+                                                            @break
 
-                                                        @case(7)
-                                                            'Vice'
-                                                        @break
+                                                            @case(7)
+                                                                'Vice'
+                                                            @break
 
-                                                        @default
-                                                    @endswitch
-                                                </p>
+                                                            @default
+                                                        @endswitch
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                     <!--end offcanvas-body-->
                                     <div class="offcanvas-foorter border p-3 hstack gap-3 text-center position-relative">
                                         <a href="#" class="btn btn-primary w-100"><i

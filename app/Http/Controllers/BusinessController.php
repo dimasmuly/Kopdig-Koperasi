@@ -13,6 +13,11 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        return view('administrator.business.detailBusiness');
+        $title = 'Administrator';
+        $user = auth()->user();
+        return view('administrator.business.detailBusiness', [
+            'title' => $title,
+            'user' => $user,
+        ]);
     }
 }
