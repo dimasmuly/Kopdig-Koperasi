@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('stashs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->float('beginning_balance');
-            $table->float('ending_balance');
+            $table->float('beginning_balance', 10, 2);
+            $table->float('ending_balance', 10, 2);
             $table->date('stash_date');
             $table->float('stash_amount');
             $table->timestamps();

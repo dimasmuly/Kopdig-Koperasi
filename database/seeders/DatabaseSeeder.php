@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Rating;
 use App\Models\Role;
+use App\Models\Stash;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        Rating::factory(200)->create();
+        // Rating::factory(200)->create();
 
         /*
         Voucher::insert([
@@ -203,6 +204,9 @@ class DatabaseSeeder extends Seeder
         //     'status' => 'success',
         //     'shipping_fee' => 10000,
         // ]);
+
+
+        Stash::factory(200)->create();
 
 
     }

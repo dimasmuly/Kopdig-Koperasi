@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\StashController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,9 @@ Route::post('/product/store', [ProductController::class, 'store'])->name('api.pr
 Route::get('/product/{id}', [ProductController::class, 'fetch'])->name('api.product.show');
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('api.product.update');
 Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('api.product.delete');
+
+Route::get('/stash/{id}', [StashController::class, 'fetch'])->name('api.stash.show');
+Route::post('/stash/store', [StashController::class, 'store'])->name('api.stash.store');
+Route::post('/stash/update/{id}', [StashController::class, 'update'])->name('api.stash.update');
+Route::get('/stash/delete/{id}', [StashController::class, 'delete'])->name('api.stash.delete');
 

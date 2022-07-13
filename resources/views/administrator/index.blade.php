@@ -14,20 +14,24 @@
 
     <div class="card">
         <div class="card-body">
-            <ul class="nav nav-pills nav-success nav-justified mb-3" role="tablist">
-                <li class="nav-item waves-effect waves-light">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-activeadmin" role="tab"
-                        aria-selected="true">
-                        Active Admin
-                    </a>
-                </li>
-                <li class="nav-item waves-effect waves-light">
-                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-nonactiveadmin" role="tab"
-                        aria-selected="false">
-                        Non Active Admin
-                    </a>
-                </li>
-            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="nav nav-pills nav-success nav-justified mb-3" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-activeadmin" role="tab"
+                                aria-selected="true">
+                                Active Admin
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-nonactiveadmin" role="tab"
+                                aria-selected="false">
+                                Non Active Admin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="tab-content text-muted">
                 <div class="tab-pane active" id="pill-justified-activeadmin" role="tabpanel">

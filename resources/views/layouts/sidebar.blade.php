@@ -26,26 +26,49 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'text-success' : '' }}" href="{{ route('dashboard') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'text-success' : '' }}"
+                        href="{{ route('dashboard') }}">
                         <i class="ri-home-line"></i> <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Chairman</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.market*') ? 'text-success' : '' }}" href="{{ route('dashboard.market') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.market*') ? 'text-success' : '' }}"
+                        href="{{ route('dashboard.market') }}">
                         <i class="ri-store-line"></i> <span data-key="t-market">Market</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.order') ? 'text-success' : '' }}" href="{{ route('dashboard.order') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.order') ? 'text-success' : '' }}"
+                        href="{{ route('dashboard.order') }}">
                         <i class="ri-money-dollar-circle-line"></i> <span data-key="t-order">Order</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.administrator') ? 'text-success' : '' }}" href="{{ route('dashboard.administrator') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.administrator') ? 'text-success' : '' }}"
+                        href="{{ route('dashboard.administrator') }}">
                         <i class="ri-user-line"></i> <span data-key="t-Administrator">Administrator</span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#sidebarAccount" class="nav-link {{ request()->routeIs('dashboard.management*') ? 'text-success collapse' : 'collapsed' }}" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{request()->routeIs('dashboard.management*') ? 'true' : 'false'}}" aria-controls="sidebarAccount" data-key="t-level-1.2"><i
+                            class="ri-bar-chart-box-line"></i> <span data-key="t-Management">Management</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{request()->routeIs('dashboard.management*') ? 'show' : ''}}" id="sidebarAccount">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard.management.stash') }}" class="nav-link" data-key="t-level-2.1">Stash</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-key="t-level-2.1">Installement</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-key="t-level-2.1">Dues</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="/logout" onclick="return(confirm('Are you sure?'))">
