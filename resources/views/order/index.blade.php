@@ -10,300 +10,300 @@
         @endslot
     @endcomponent
 
+    <div class="row justify-content-between">
+        <div class="col-xl-4">
+            <ul class="nav nav-pills nav-success nav-justified mb-3" role="tablist">
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-success" role="tab">
+                        Success
+                    </a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-pending" role="tab">
+                        Pending
+                    </a>
+                </li>
+                <li class="nav-item waves-effect waves-light">
+                    <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-cancel" role="tab">
+                        Cancel
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xl-3">
+            <input type="text" id="search_field" placeholder="Search Order" class="form-control">
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-pills nav-success nav-justified mb-3" role="tablist">
-                        <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-success" role="tab">
-                                Success
-                            </a>
-                        </li>
-                        <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-pending" role="tab">
-                                Pending
-                            </a>
-                        </li>
-                        <li class="nav-item waves-effect waves-light">
-                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-cancel" role="tab">
-                                Cancel
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content text-muted">
-                        <div class="tab-pane active" id="pill-justified-success" role="tabpanel">
-                            <div class="live-preview">
-                                <div class="table-responsive">
-                                    <table class="table align-middle table-nowrap mb-0">
-                                        <thead class="table-light">
+        <div class="col-md">
+            <div class="card card-body">
+                <div class="tab-content text-muted">
+                    <div class="tab-pane active" id="pill-justified-success" role="tabpanel">
+                        <div class="live-preview">
+                            <table id="table-order-success" class="table align-middle table-nowrap mb-0 table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total Pay</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        @if ($order['status'] == 'success')
                                             <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Customer</th>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Total Pay</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $order)
-                                                @if ($order['status'] == 'success')
-                                                    <tr>
-                                                        <td><a href="#" class="fw-medium">{{ $loop->iteration }}</a>
-                                                        </td>
-                                                        <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
-                                                        </td>
-                                                        @if ($order['status'] == 'pending')
-                                                            <td class="text-primary"><i
-                                                                    class="ri-refresh-line fs-17 align-middle"></i>
-                                                                Pending
-                                                            </td>
-                                                        @elseif ($order['status'] == 'success')
-                                                            <td class="text-success"><i
-                                                                    class="ri-checkbox-circle-line fs-17 align-middle"></i>
-                                                                Success
-                                                            </td>
-                                                        @elseif ($order['status'] == 'cancel')
-                                                            <td class="text-danger"><i
-                                                                    class="ri-close-circle-line fs-17 align-middle"></i>
-                                                                Cancel
-                                                            </td>
-                                                        @endif
-                                                        <td>
-                                                            <div class="d-flex gap-2 align-items-center">
-                                                                <div class="flex-shrink-0">
-                                                                    <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
-                                                                        alt="" class="avatar-xs rounded-circle" />
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    {{ $order['user']['name'] }}
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $order['transaction']['product']['name'] }}</td>
-                                                        <td>{{ $order['transaction']['quantity'] }}</td>
-                                                        <td>IDR {{ number_format($order['total_pay']) }}</td>
-                                                        <td>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#editOrder"
-                                                                class="btn btn-success w-sm btn-edit"
-                                                                data-id="{{ $order['id'] }}">Edit</a>
-                                                            <a href="/api/order/{{ $order['id'] }}/delete"
-                                                                onclick="return(
-                                                            confirm('Are you sure you want to delete this order?')
-                                                        )"
-                                                                class="btn btn-danger w-sm btn-delete">Delete</a>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
-                                </div>
-                                <!-- end table responsive -->
-                            </div>
-                            {{-- pagination dynamic from orders --}}
-                            <div class="row justify-content-between mt-3">
-                                <div class="col-xl-6">
-                                    <div class="pagination-info">
-                                        <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
-                                            {{ $orders->total() }} entries</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="pagination-controls">
-                                        {{ $orders->links() }}
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- end pagination dynamic from orders --}}
-                        </div>
-                        <div class="tab-pane" id="pill-justified-pending" role="tabpanel">
-                            <div class="live-preview">
-                                <div class="table-responsive">
-                                    <table class="table align-middle table-nowrap mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Customer</th>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Total Pay</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $order)
+                                                <td><a href="#" class="fw-medium">{{ $loop->iteration }}</a>
+                                                </td>
+                                                <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
+                                                </td>
                                                 @if ($order['status'] == 'pending')
-                                                    <tr>
-                                                        <td><a href="#"
-                                                                class="fw-medium">{{ $loop->iteration }}</a>
-                                                        </td>
-                                                        <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
-                                                        </td>
-                                                        @if ($order['status'] == 'pending')
-                                                            <td class="text-primary"><i
-                                                                    class="ri-refresh-line fs-17 align-middle"></i>
-                                                                Pending
-                                                            </td>
-                                                        @elseif ($order['status'] == 'success')
-                                                            <td class="text-success"><i
-                                                                    class="ri-checkbox-circle-line fs-17 align-middle"></i>
-                                                                Success
-                                                            </td>
-                                                        @elseif ($order['status'] == 'cancel')
-                                                            <td class="text-danger"><i
-                                                                    class="ri-close-circle-line fs-17 align-middle"></i>
-                                                                Cancel
-                                                            </td>
-                                                        @endif
-                                                        <td>
-                                                            <div class="d-flex gap-2 align-items-center">
-                                                                <div class="flex-shrink-0">
-                                                                    <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
-                                                                        alt="" class="avatar-xs rounded-circle" />
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    {{ $order['user']['name'] }}
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $order['transaction']['product']['name'] }}</td>
-                                                        <td>{{ $order['transaction']['quantity'] }}</td>
-                                                        <td>IDR {{ number_format($order['total_pay']) }}</td>
-                                                        <td>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#editOrder"
-                                                                class="btn btn-success w-sm btn-edit"
-                                                                data-id="{{ $order['id'] }}">Edit</a>
-                                                            <a href="/api/order/{{ $order['id'] }}/delete"
-                                                                onclick="return(
-                                                            confirm('Are you sure you want to delete this order?')
-                                                        )"
-                                                                class="btn btn-danger w-sm btn-delete">Delete</a>
-                                                        </td>
-                                                    </tr>
+                                                    <td class="text-primary"><i
+                                                            class="ri-refresh-line fs-17 align-middle"></i>
+                                                        Pending
+                                                    </td>
+                                                @elseif ($order['status'] == 'success')
+                                                    <td class="text-success"><i
+                                                            class="ri-checkbox-circle-line fs-17 align-middle"></i>
+                                                        Success
+                                                    </td>
+                                                @elseif ($order['status'] == 'cancel')
+                                                    <td class="text-danger"><i
+                                                            class="ri-close-circle-line fs-17 align-middle"></i>
+                                                        Cancel
+                                                    </td>
                                                 @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
-                                </div>
-                                <!-- end table responsive -->
-                            </div>
-                            {{-- pagination dynamic from orders --}}
-                            <div class="row justify-content-between mt-3">
-                                <div class="col-xl-6">
-                                    <div class="pagination-info">
-                                        <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
-                                            {{ $orders->total() }} entries</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="pagination-controls">
-                                        {{ $orders->links() }}
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- end pagination dynamic from orders --}}
-                        </div>
-                        <div class="tab-pane" id="pill-justified-cancel" role="tabpanel">
-                            <div class="live-preview">
-                                <div class="table-responsive">
-                                    <table class="table align-middle table-nowrap mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Customer</th>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Total Pay</th>
-                                                <th scope="col">Action</th>
+                                                <td>
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
+                                                                alt="" class="avatar-xs rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            {{ $order['user']['name'] }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $order['transaction']['product']['name'] }}</td>
+                                                <td>{{ $order['transaction']['quantity'] }}</td>
+                                                <td>IDR {{ number_format($order['total_pay']) }}</td>
+                                                <td>
+                                                    <div class="col text-end dropdown">
+                                                        <a href="javascript:void(0);" id="dropdownMenuLink2"
+                                                            data-bs-toggle="dropdown" aria-expanded="false" class="">
+                                                            <i class="ri-more-fill fs-17"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end"
+                                                            aria-labelledby="dropdownMenuLink2" style="">
+                                                            <li>
+                                                                <a class="dropdown-item btn-edit" data-bs-toggle="modal"
+                                                                    data-bs-target="#editOrder" href="#"
+                                                                    data-id="{{ $order['id'] }}">
+                                                                    <i class="ri-edit-line me-2 align-middle"></i>
+                                                                    Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"href="/api/order/{{ $order['id'] }}/delete"
+                                                                    onclick="return(confirm('Are you sure you want to delete this order?'))">
+                                                                    <i class="ri-delete-bin-5-line me-2 align-middle"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $order)
-                                                @if ($order['status'] == 'cancel')
-                                                    <tr>
-                                                        <td><a href="#"
-                                                                class="fw-medium">{{ $loop->iteration }}</a>
-                                                        </td>
-                                                        <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
-                                                        </td>
-                                                        @if ($order['status'] == 'pending')
-                                                            <td class="text-primary"><i
-                                                                    class="ri-refresh-line fs-17 align-middle"></i>
-                                                                Pending
-                                                            </td>
-                                                        @elseif ($order['status'] == 'success')
-                                                            <td class="text-success"><i
-                                                                    class="ri-checkbox-circle-line fs-17 align-middle"></i>
-                                                                Success
-                                                            </td>
-                                                        @elseif ($order['status'] == 'cancel')
-                                                            <td class="text-danger"><i
-                                                                    class="ri-close-circle-line fs-17 align-middle"></i>
-                                                                Cancel
-                                                            </td>
-                                                        @endif
-                                                        <td>
-                                                            <div class="d-flex gap-2 align-items-center">
-                                                                <div class="flex-shrink-0">
-                                                                    <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
-                                                                        alt="" class="avatar-xs rounded-circle" />
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    {{ $order['user']['name'] }}
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $order['transaction']['product']['name'] }}</td>
-                                                        <td>{{ $order['transaction']['quantity'] }}</td>
-                                                        <td>IDR {{ number_format($order['total_pay']) }}</td>
-                                                        <td>
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#editOrder"
-                                                                class="btn btn-success w-sm btn-edit"
-                                                                data-id="{{ $order['id'] }}">Edit</a>
-                                                            <a href="/api/order/{{ $order['id'] }}/delete"
-                                                                onclick="return(
-                                                            confirm('Are you sure you want to delete this order?')
-                                                        )"
-                                                                class="btn btn-danger w-sm btn-delete">Delete</a>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!-- end table -->
-                                </div>
-                                <!-- end table responsive -->
-                            </div>
-                            {{-- pagination dynamic from orders --}}
-                            <div class="row justify-content-between mt-3">
-                                <div class="col-xl-6">
-                                    <div class="pagination-info">
-                                        <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
-                                            {{ $orders->total() }} entries</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="pagination-controls">
-                                        {{ $orders->links() }}
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- end pagination dynamic from orders --}}
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                        {{-- pagination dynamic from orders --}}
+                        <div class="row justify-content-between mt-3">
+                            <div class="col-xl-6">
+                                <div class="pagination-info">
+                                    <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
+                                        {{ $orders->total() }} entries</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="pagination-controls">
+                                    {{ $orders->links() }}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end pagination dynamic from orders --}}
+                    </div>
+                    <div class="tab-pane" id="pill-justified-pending" role="tabpanel">
+                        <div class="live-preview">
+                            <table id="table-order-pending" class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total Pay</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        @if ($order['status'] == 'pending')
+                                            <tr>
+                                                <td><a href="#" class="fw-medium">{{ $loop->iteration }}</a>
+                                                </td>
+                                                <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
+                                                </td>
+                                                @if ($order['status'] == 'pending')
+                                                    <td class="text-primary"><i
+                                                            class="ri-refresh-line fs-17 align-middle"></i>
+                                                        Pending
+                                                    </td>
+                                                @elseif ($order['status'] == 'success')
+                                                    <td class="text-success"><i
+                                                            class="ri-checkbox-circle-line fs-17 align-middle"></i>
+                                                        Success
+                                                    </td>
+                                                @elseif ($order['status'] == 'cancel')
+                                                    <td class="text-danger"><i
+                                                            class="ri-close-circle-line fs-17 align-middle"></i>
+                                                        Cancel
+                                                    </td>
+                                                @endif
+                                                <td>
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
+                                                                alt="" class="avatar-xs rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            {{ $order['user']['name'] }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $order['transaction']['product']['name'] }}</td>
+                                                <td>{{ $order['transaction']['quantity'] }}</td>
+                                                <td>IDR {{ number_format($order['total_pay']) }}</td>
+                                                <td>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editOrder"
+                                                        class="btn btn-success w-sm btn-edit"
+                                                        data-id="{{ $order['id'] }}">Edit</a>
+                                                    <a href="/api/order/{{ $order['id'] }}/delete"
+                                                        onclick="return(
+                                                    confirm('Are you sure you want to delete this order?')
+                                                )"
+                                                        class="btn btn-danger w-sm btn-delete">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- end table responsive -->
+                        </div>
+                        {{-- pagination dynamic from orders --}}
+                        <div class="row justify-content-between mt-3">
+                            <div class="col-xl-6">
+                                <div class="pagination-info">
+                                    <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
+                                        {{ $orders->total() }} entries</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="pagination-controls">
+                                    {{ $orders->links() }}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end pagination dynamic from orders --}}
+                    </div>
+                    <div class="tab-pane" id="pill-justified-cancel" role="tabpanel">
+                        <div class="live-preview">
+                            <table id="table-order-cancel" class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total Pay</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        @if ($order['status'] == 'cancel')
+                                            <tr>
+                                                <td><a href="#" class="fw-medium">{{ $loop->iteration }}</a>
+                                                </td>
+                                                <td>{{ date('d-m-Y, g:i A', strtotime($order['created_at'])) }}
+                                                </td>
+                                                @if ($order['status'] == 'pending')
+                                                    <td class="text-primary"><i
+                                                            class="ri-refresh-line fs-17 align-middle"></i>
+                                                        Pending
+                                                    </td>
+                                                @elseif ($order['status'] == 'success')
+                                                    <td class="text-success"><i
+                                                            class="ri-checkbox-circle-line fs-17 align-middle"></i>
+                                                        Success
+                                                    </td>
+                                                @elseif ($order['status'] == 'cancel')
+                                                    <td class="text-danger"><i
+                                                            class="ri-close-circle-line fs-17 align-middle"></i>
+                                                        Cancel
+                                                    </td>
+                                                @endif
+                                                <td>
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="{{ URL::asset($order['user']['profile_photo_path']) }}"
+                                                                alt="" class="avatar-xs rounded-circle" />
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            {{ $order['user']['name'] }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $order['transaction']['product']['name'] }}</td>
+                                                <td>{{ $order['transaction']['quantity'] }}</td>
+                                                <td>IDR {{ number_format($order['total_pay']) }}</td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!-- end table responsive -->
+                        </div>
+                        {{-- pagination dynamic from orders --}}
+                        <div class="row justify-content-between mt-3">
+                            <div class="col-xl-6">
+                                <div class="pagination-info">
+                                    <span>Showing {{ $orders->firstItem() }} to {{ $orders->lastItem() }} of
+                                        {{ $orders->total() }} entries</span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="pagination-controls">
+                                    {{ $orders->links() }}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end pagination dynamic from orders --}}
                     </div>
                 </div>
             </div>
@@ -437,6 +437,19 @@
                 const price = $('#productprice-lable').html();
                 const totalPay = quantity * price;
                 $('#totalpay-field').val(totalPay);
+            });
+
+            $('#search_field').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('#table-order-pending tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $('#table-order-success tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $('#table-order-cancel tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
     </script>
