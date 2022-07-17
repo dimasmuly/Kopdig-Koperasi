@@ -70,16 +70,13 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <div class="flex-shrink-0 me-2">
                                                 <img src="
-                                                {{
-                                                    // if product image is not empty, display image
-                                                    $product['thumbnail'] != null || !URL::asset('products/default.jpg') ?
-                                                    URL::asset($product['thumbnail'])
-                                                    :
-                                                    // else, display default image
-                                                    'https://thumbs.dreamstime.com/b/no-thumbnail-images-placeholder-forums-blogs-websites-148010338.jpg'
-                                                }}
-                                                " alt=""
-                                                    class="avatar-xs rounded-3" style="object-fit: cover" />
+                                                {{ // if product image is not empty, display image
+                                                    $product['thumbnail'] != null || !URL::asset('products/default.jpg')
+                                                        ? URL::asset($product['thumbnail'])
+                                                        : // else, display default image
+                                                        'https://thumbs.dreamstime.com/b/no-thumbnail-images-placeholder-forums-blogs-websites-148010338.jpg' }}
+                                                "
+                                                    alt="" class="avatar-xs rounded-3" style="object-fit: cover" />
                                             </div>
                                             <div class="flex-grow-1 d-block">
                                                 {{ ucwords(strtolower($product['name'])) }}<br>
@@ -151,7 +148,8 @@
                                         @endempty
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-primary btn-edit-product" data-bs-toggle="modal" data-bs-target="#addProduct"
+                                    <a href="#" class="btn btn-sm btn-primary btn-edit-product"
+                                        data-bs-toggle="modal" data-bs-target="#addProduct"
                                         data-productid="{{ $product['id'] }}"><i class="ri-edit-line"></i></a>
                                     <a href="/api/product/delete/{{ $product['id'] }}" class="btn btn-sm btn-danger"
                                         onclick="return(confirm('Are you sure?'))"><i
@@ -271,7 +269,7 @@
     $(document).ready(function() {
         $('#search_field').on('keyup', function() {
             var value = $(this).val().toLowerCase();
-            $('#product-table tr').filter(function() {
+            $('#product-table tbody tr').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
@@ -302,7 +300,8 @@
             $('#addProduct #thumbnail_field').val('');
             $('#addProduct #weight_field').val('');
             $('#addProduct #description_field').val('');
-            $('#addProduct .modal-body form').attr('action', '/api/product/update/' + $(this).data('productid'));
+            $('#addProduct .modal-body form').attr('action', '/api/product/update/' + $(this).data(
+                'productid'));
 
             $.ajax({
                 url: '/api/product/' + $(this).data('productid'),

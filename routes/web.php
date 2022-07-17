@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StashController;
@@ -34,6 +35,6 @@ Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(funct
 
     Route::get('dashboard/administrator', [AdministratorController::class, 'index'])->name('dashboard.administrator');
     Route::post('dashboard/administrator/search', [AdminController::class, 'search'])->name('dashboard.admin.search');
-
     Route::get('dashboard/stash', [StashController::class, 'index'])->name('dashboard.management.stash');
+    Route::get('dashboard/loans', [LoanController::class, 'index'])->name('dashboard.management.loans');
 });

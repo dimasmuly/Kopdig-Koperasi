@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\LoanController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\StashController;
@@ -36,4 +37,3 @@ Route::get('/stash/{id}', [StashController::class, 'fetch'])->name('api.stash.sh
 Route::post('/stash/store', [StashController::class, 'store'])->name('api.stash.store');
 Route::post('/stash/update/{id}', [StashController::class, 'update'])->name('api.stash.update');
 Route::get('/stash/delete/{id}', [StashController::class, 'delete'])->name('api.stash.delete');
-

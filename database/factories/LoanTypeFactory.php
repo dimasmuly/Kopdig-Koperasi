@@ -17,7 +17,7 @@ class LoanTypeFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->word,
+            'type' => $this->faker->randomElement(['Fixed', 'Variable', 'Other']),
             'period' => $this->faker->date(),
             'interest' => $this->faker->randomFloat(2, 0, 10),
             'fine' => $this->faker->randomFloat(2, 0, 10),

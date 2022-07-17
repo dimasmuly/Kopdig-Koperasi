@@ -17,6 +17,7 @@ class Loan extends Model
         'installment_interest',
         'total_installment',
         'installment_remaining',
+        'installment_period',
         'loan_type_id',
     ];
 

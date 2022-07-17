@@ -178,8 +178,8 @@ class DatabaseSeeder extends Seeder
         //     ['name' => 'Vice'],
         // ]);
         // User::factory(40)->create();
-        // LoanType::factory(10)->create();
-        // Loan::factory(100)->create();
+        // LoanType::factory(3)->create();
+        Loan::factory(100)->create();
         // Cooperative::factory(40)->create();
         // ProductCategory::factory(10)->create();
         // Product::factory(100)->create();
@@ -206,7 +206,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        Stash::factory(200)->create();
+        // Stash::factory(200)->create();
 
 
     }

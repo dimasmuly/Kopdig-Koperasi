@@ -18,13 +18,14 @@ class LoanFactory extends Factory
     {
         return [
             'user_id' => $this->faker->numberBetween(1, 40),
-            'loan_date' => $this->faker->date(),
-            'amount' => $this->faker->randomFloat(2, 0, 1000),
-            'installment_principal' => $this->faker->numberBetween(2, 0, 2000000),
-            'installment_interest' => $this->faker->numberBetween(2, 0, 2000000),
-            'total_installment' => $this->faker->numberBetween(2, 0, 2000000),
+            'loan_date' => $this->faker->dateTimeBetween('-1 month', 'now'),
+            'amount' => $this->faker->randomFloat(400000, 5000000),
+            'installment_principal' => $this->faker->numberBetween(400000, 2000000),
+            'installment_interest' => $this->faker->numberBetween(400000, 2000000),
+            'total_installment' => $this->faker->numberBetween(400000, 2000000),
             'installment_remaining' => $this->faker->numberBetween(1, 10),
-            'loan_type_id' => $this->faker->numberBetween(1, 10),
+            'loan_type_id' => $this->faker->numberBetween(1, 3),
+            'installment_period' => $this->faker->randomElement([30, 60]),
         ];
     }
 }

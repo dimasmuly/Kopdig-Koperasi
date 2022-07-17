@@ -59,7 +59,10 @@
                     <div class="collapse menu-dropdown {{request()->routeIs('dashboard.management*') ? 'show' : ''}}" id="sidebarAccount">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('dashboard.management.stash') }}" class="nav-link" data-key="t-level-2.1">Stash</a>
+                                <a href="{{ route('dashboard.management.stash') }}" class="nav-link" data-key="t-level-2.1">Stashes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard.management.loans') }}" class="nav-link" data-key="t-level-2.1">Loans</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link" data-key="t-level-2.1">Installement</a>

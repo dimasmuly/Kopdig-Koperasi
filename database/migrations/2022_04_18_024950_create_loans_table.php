@@ -20,8 +20,9 @@ return new class extends Migration
             $table->integer('amount');
             $table->integer('installment_principal');
             $table->integer('installment_interest');
-            $table->integer('total_installment');
             $table->integer('installment_remaining');
+            $table->integer('installment_period');
+            $table->integer('total_installment');
             $table->integer('loan_type_id');
             $table->timestamps();
         });

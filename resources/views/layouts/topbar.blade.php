@@ -723,9 +723,9 @@
                         <a class="dropdown-item" href="pages-profile"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" href="pages-profile"><i
+                        {{-- <a class="dropdown-item" href="pages-profile"><i
                                 class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Balance : <b>$5971.67</b></span></a>
+                                class="align-middle">Balance : <b>$5971.67</b></span></a> --}}
                         <a class="dropdown-item" href="{{ route('auth.logout') }}">
                             <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Logout</span>
