@@ -37,3 +37,11 @@ Route::get('/stash/{id}', [StashController::class, 'fetch'])->name('api.stash.sh
 Route::post('/stash/store', [StashController::class, 'store'])->name('api.stash.store');
 Route::post('/stash/update/{id}', [StashController::class, 'update'])->name('api.stash.update');
 Route::get('/stash/delete/{id}', [StashController::class, 'delete'])->name('api.stash.delete');
+
+Route::post('/loan/store', [LoanController::class, 'store'])->name('api.loan.store');
+Route::post('/loan/{id}/update', [LoanController::class, 'update'])->name('api.loan.update');
+Route::post('/loan/{id}/delete', [LoanController::class, 'delete'])->name('api.loan.delete');
+
+Route::get('/loan/loan_type/{id}', [LoanController::class, 'getLoanType'])->name('api.loan.loan_type');
+
+

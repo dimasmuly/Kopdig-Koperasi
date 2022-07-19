@@ -36,7 +36,7 @@ class LoanController extends Controller
                             AND users.cooperative_id = cooperatives.id
                             AND users.cooperative_id = " . Auth::user()->cooperative_id . "
                         ORDER BY
-                            loans.loan_date DESC
+                            loans.installment_remaining DESC
        ");
 
         $loan_types = LoanType::all();

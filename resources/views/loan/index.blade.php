@@ -43,7 +43,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($loans as $loan)
-                                    <tr>
+                                    <tr data-id="{{ $loan['id'] }}" data-membername="{{ $loan['name'] }}"
+                                        data-loan_type_id="{{ $loan['loan_type_id'] }}"
+                                        data-loan_date="{{ $loan['loan_date'] }}"
+                                        data-installment_principal="{{ $loan['installment_principal'] }}"
+                                        data-installment_period="{{ $loan['installment_remaining'] }}"
+                                        data-total_installment="{{ $loan['total_installment'] }}"
+                                        data-amount="{{ $loan['amount'] }}">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ date('d-m-Y', strtotime($loan['loan_date'])) }}</td>
                                         <td>{{ $loan['name'] }}</td>
@@ -73,14 +79,13 @@
                                                     <i class="ri-more-fill align-middle"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end" style="">
-                                                    <li><a href="#!" class="dropdown-item"><i
-                                                                class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                            View</a></li>
-                                                    <li><a class="dropdown-item edit-item-btn"><i
+                                                    <li><a class="dropdown-item edit-item-btn" data-bs-toggle="modal"
+                                                            data-bs-target="#loanModal"><i
                                                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                             Edit</a></li>
                                                     <li>
-                                                        <a class="dropdown-item remove-item-btn">
+                                                        <a class="dropdown-item remove-item-btn delete-item-btn"
+                                                            data-id="{{ $loan['id'] }}">
                                                             <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                                                             Delete
                                                         </a>
@@ -126,12 +131,12 @@
                         <div class="row mb-3">
                             <div class="col-md">
                                 <label for="installment_date" class="form-label">Installment Date</label>
-                                <input type="date" class="form-control" id="installment_date"
-                                    name="installment_date">
+                                <input type="date" class="form-control" id="installment_date" name="installment_date">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md">
+                                <input type="hidden" name="installment_interest" id="installment_interest">
                                 <label for="installment_principal" class="form-label">Installment Principal</label>
                                 <input type="number" class="form-control" id="installment_principal"
                                     name="installment_principal" readonly>
@@ -143,7 +148,7 @@
                                     name="installment_period">
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md mb-3">
                             <label for="amount" class="form-label">Amount</label>
                             <input type="number" class="form-control" id="amount" name="amount">
                         </div>
@@ -171,6 +176,34 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.edit-item-btn').on('click', function() {
+                var id = $(this).closest('tr').data('id');
+                var user_id = '{{ auth()->user()->id }}';
+                var membername = $(this).closest('tr').data('membername');
+                var loan_type_id = $(this).closest('tr').data('loan_type_id');
+                var loan_date = $(this).closest('tr').data('loan_date');
+                var installment_principal = $(this).closest('tr').data('installment_principal');
+                var installment_period = $(this).closest('tr').data('installment_period');
+                var amount = $(this).closest('tr').data('amount');
+                var total_installment = $(this).closest('tr').data('total_installment');
+                var type = $(this).closest('tr').data('type');
+                var loan_id = $(this).closest('tr').data('loan_id');
+                $('#loanModalLabel').text('Edit Loan');
+                $('#membername_field').val(membername);
+                $('#user_id').val(user_id);
+                $('#loan_type_id').val(loan_type_id);
+                $('#installment_date').val(loan_date);
+                $('#installment_date').attr('readonly', true);
+                $('#installment_principal').val(installment_principal);
+                $('#installment_period').val(installment_period);
+                $('#installment_period').attr('readonly', true);
+                $('#amount').val(amount);
+                $('#total_installment').val(total_installment);
+                $('#loan_id').val(loan_id);
+                $('#loanModal .modal-body form').attr('action', '/api/loan/' + id + '/update');
+            });
+
             $('#search_field').on('keyup', function() {
                 var keyword = $(this).val();
                 $('#table-loans tbody tr').each(function() {
@@ -192,10 +225,61 @@
                 $('#membername_field').val('{{ auth()->user()->name }}');
                 $('#amount').val('');
                 $('#installment_date').val('');
+                $('#installment_date').attr('readonly', false);
                 $('#installment_principal').val('');
                 $('#installment_period').val('');
+                $('#installment_period').attr('readonly', false);
                 $('#loan_type_id').val('');
                 $('#total_installment').val('');
+            });
+
+            $('#amount').on('keyup', function() {
+                var amount = $(this).val();
+                var installment_principal = $('#installment_principal').val();
+                var installment_period = $('#installment_period').val();
+                var installment_interest = parseInt(amount) - parseInt(installment_principal);
+                $('#installment_interest').val(installment_interest);
+                var total_installment = 0;
+                if (amount != '' || amount != 0) {
+                    total_installment = parseInt(amount) + parseInt(installment_interest);
+                    $('#total_installment').val(total_installment);
+                } else {
+                    $('#total_installment').val('');
+                }
+            });
+
+            $('.delete-item-btn').on('click', function() {
+                let isdelete = confirm('Are you sure to delete this item?');
+                if (isdelete) {
+                    var id = $(this).closest('tr').data('id');
+                    $.ajax({
+                        url: '/api/loan/' + id + '/delete',
+                        type: 'POST',
+                        success: function(response) {
+                            $('#table-loans tbody tr[data-id=' + id + ']').remove();
+                        }
+                    });
+                }
+            });
+
+            $('#loan_type_id').change(function() {
+                var loan_type_id = $(this).val();
+                $.ajax({
+                    url: '/api/loan/loan_type/' + loan_type_id,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#installment_principal').val(response.interest);
+                        var mount = $('#amount').val();
+                        var total_installment = 0;
+                        if (mount != '' || mount != 0) {
+                            total_installment = parseInt(mount) * (parseInt(response.interest) *
+                                $('#installment_period').val());
+                            $('#total_installment').val(total_installment);
+                        } else {
+                            $('#total_installment').val('');
+                        }
+                    }
+                });
             });
         });
     </script>
