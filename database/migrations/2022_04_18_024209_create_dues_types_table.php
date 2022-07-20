@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('dues_types', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->float('amount');
+            $table->double('amount');
             $table->timestamps();
         });
     }

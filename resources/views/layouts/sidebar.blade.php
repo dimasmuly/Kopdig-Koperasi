@@ -65,10 +65,10 @@
                                 <a href="{{ route('dashboard.management.loans') }}" class="nav-link" data-key="t-level-2.1">Loans</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-level-2.1">Installement</a>
+                                <a href="{{ route('dashboard.management.installment') }}" class="nav-link" data-key="t-level-2.1">Installement</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-level-2.1">Dues</a>
+                                <a href="{{ route('dashboard.management.dues') }}" class="nav-link" data-key="t-level-2.1">Dues</a>
                             </li>
                         </ul>
                     </div>

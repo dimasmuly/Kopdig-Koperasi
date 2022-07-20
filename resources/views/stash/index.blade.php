@@ -130,7 +130,7 @@
         $(document).ready(function() {
             $('#search_field').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
-                $('#table_stash tr').filter(function() {
+                $('#table_stash tbody tr').filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

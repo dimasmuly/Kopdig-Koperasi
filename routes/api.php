@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\DuesController;
+use App\Http\Controllers\API\InstallmentController;
 use App\Http\Controllers\API\LoanController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
@@ -41,7 +43,14 @@ Route::get('/stash/delete/{id}', [StashController::class, 'delete'])->name('api.
 Route::post('/loan/store', [LoanController::class, 'store'])->name('api.loan.store');
 Route::post('/loan/{id}/update', [LoanController::class, 'update'])->name('api.loan.update');
 Route::post('/loan/{id}/delete', [LoanController::class, 'delete'])->name('api.loan.delete');
-
 Route::get('/loan/loan_type/{id}', [LoanController::class, 'getLoanType'])->name('api.loan.loan_type');
+
+Route::post('/installment/{id}/update', [InstallmentController::class, 'update'])->name('api.installment.update');
+Route::post('/installment/{id}/delete', [InstallmentController::class, 'delete'])->name('api.installment.delete');
+
+Route::post('/dues/store', [DuesController::class, 'store'])->name('api.dues.store');
+Route::post('/dues/{id}/update', [DuesController::class, 'update'])->name('api.dues.update');
+Route::get('/dues/{id}/delete', [DuesController::class, 'delete'])->name('api.dues.delete');
+Route::get('/dues/type/{id}', [DuesController::class, 'getDuesType'])->name('api.dues.type');
 
 

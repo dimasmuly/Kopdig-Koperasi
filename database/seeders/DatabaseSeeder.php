@@ -6,6 +6,9 @@ use App\Models\Business;
 use App\Models\BusinessDetail;
 use App\Models\Cooperative;
 use App\Models\Courier;
+use App\Models\Dues;
+use App\Models\DuesType;
+use App\Models\Installment;
 use App\Models\Loan;
 use App\Models\LoanType;
 use App\Models\PaymentMethod;
@@ -110,62 +113,64 @@ class DatabaseSeeder extends Seeder
         ]);
         */
 
-        // PaymentMethod::insert(
-        //     [[
-        //         'name' => 'BRI',
-        //         'description' => 'BRI',
-        //         'thumbnail' => '/images/payment_methods/bri.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'Mandiri',
-        //         'description' => 'Mandiri',
-        //         'thumbnail' => '/images/payment_methods/mandiri.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'BCA',
-        //         'description' => 'BCA',
-        //         'thumbnail' => '/images/payment_methods/bca.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'BNI',
-        //         'description' => 'BNI',
-        //         'thumbnail' => '/images/payment_methods/bni.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'CIMB',
-        //         'description' => 'CIMB',
-        //         'thumbnail' => '/images/payment_methods/cimb.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'Maybank',
-        //         'description' => 'Maybank',
-        //         'thumbnail' => '/images/payment_methods/maybank.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'Bank of China',
-        //         'description' => 'Bank of China',
-        //         'thumbnail' => '/images/payment_methods/bank_of_china.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'Bank of Indonesia',
-        //         'description' => 'Bank of Indonesia',
-        //         'thumbnail' => '/images/payment_methods/bank_of_indonesia.png',
-        //         'credit_number' => '123456789',
-        //     ],
-        //     [
-        //         'name' => 'Bank of Tokyo',
-        //         'description' => 'Bank of Tokyo',
-        //         'thumbnail' => '/images/payment_methods/bank_of_tokyo.png',
-        //         'credit_number' => '123456789',
-        //     ],]
-        // );
+        /*
+        PaymentMethod::insert(
+            [[
+                'name' => 'BRI',
+                'description' => 'BRI',
+                'thumbnail' => '/images/payment_methods/bri.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Mandiri',
+                'description' => 'Mandiri',
+                'thumbnail' => '/images/payment_methods/mandiri.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'BCA',
+                'description' => 'BCA',
+                'thumbnail' => '/images/payment_methods/bca.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'BNI',
+                'description' => 'BNI',
+                'thumbnail' => '/images/payment_methods/bni.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'CIMB',
+                'description' => 'CIMB',
+                'thumbnail' => '/images/payment_methods/cimb.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Maybank',
+                'description' => 'Maybank',
+                'thumbnail' => '/images/payment_methods/maybank.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of China',
+                'description' => 'Bank of China',
+                'thumbnail' => '/images/payment_methods/bank_of_china.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of Indonesia',
+                'description' => 'Bank of Indonesia',
+                'thumbnail' => '/images/payment_methods/bank_of_indonesia.png',
+                'credit_number' => '123456789',
+            ],
+            [
+                'name' => 'Bank of Tokyo',
+                'description' => 'Bank of Tokyo',
+                'thumbnail' => '/images/payment_methods/bank_of_tokyo.png',
+                'credit_number' => '123456789',
+            ],]
+        );
+        */
 
         // // insert multiple data in roles
         // Role::insert([
@@ -179,7 +184,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         // User::factory(40)->create();
         // LoanType::factory(3)->create();
-        Loan::factory(100)->create();
+        // Loan::factory(100)->create();
         // Cooperative::factory(40)->create();
         // ProductCategory::factory(10)->create();
         // Product::factory(100)->create();
@@ -208,6 +213,110 @@ class DatabaseSeeder extends Seeder
 
         // Stash::factory(200)->create();
 
+        /*
+        Installment::insert([
+            [
+                'loan_id' => 1,
+                'installment_type' => 'monthly',
+                'installment_number' => 1,
+                'pay_date' => '2020-01-01',
+                'lateness_date' => '2020-01-01',
+                'total_installment' => 100000,
+                'interest' => 5,
+                'fine' => 5,
+                'total_pay' => 100000,
+            ]
+        ]);
+        */
 
+        /*
+        DuesType::insert([
+            [
+                'type' => 'Monthly',
+                'amount' => 100000
+            ],
+            [
+                'type' => 'Quarterly',
+                'amount' => 250000
+            ],
+            [
+                'type' => 'Half-yearly',
+                'amount' => 500000
+            ],
+            [
+                'type' => 'Yearly',
+                'amount' => 1000000
+            ],
+        ]);
+        */
+
+        Dues::insert([
+            [
+                'user_id' => 1,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 2,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 3,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 4,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 5,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 6,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 7,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 8,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 9,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 10,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1
+            ],
+            [
+                'user_id' => 11,
+                'total_pay' => 100000,
+                'dues_amount' => 100000,
+                'dues_type_id' => 1,
+            ]
+        ]);
     }
 }
