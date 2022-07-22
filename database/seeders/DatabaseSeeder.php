@@ -11,6 +11,7 @@ use App\Models\DuesType;
 use App\Models\Installment;
 use App\Models\Loan;
 use App\Models\LoanType;
+use App\Models\Mail;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -250,6 +251,7 @@ class DatabaseSeeder extends Seeder
         ]);
         */
 
+        /*
         Dues::insert([
             [
                 'user_id' => 1,
@@ -318,5 +320,8 @@ class DatabaseSeeder extends Seeder
                 'dues_type_id' => 1,
             ]
         ]);
+        */
+
+        Mail::factory(40)->create();
     }
 }

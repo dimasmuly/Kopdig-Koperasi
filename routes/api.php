@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\DuesController;
 use App\Http\Controllers\API\InstallmentController;
 use App\Http\Controllers\API\LoanController;
+use App\Http\Controllers\API\MailController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\StashController;
@@ -53,4 +54,5 @@ Route::post('/dues/{id}/update', [DuesController::class, 'update'])->name('api.d
 Route::get('/dues/{id}/delete', [DuesController::class, 'delete'])->name('api.dues.delete');
 Route::get('/dues/type/{id}', [DuesController::class, 'getDuesType'])->name('api.dues.type');
 
-
+Route::post('/mail/store', [MailController::class, 'store'])->name('api.mail.store');
+Route::post('/mail/{id}/update', [MailController::class, 'update'])->name('api.mail.update');

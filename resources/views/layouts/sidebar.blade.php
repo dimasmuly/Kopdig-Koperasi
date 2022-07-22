@@ -12,11 +12,11 @@
             </span>
         </a>
 
+        {{-- <i class="ri-record-circle-line"></i> --}}
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
-            id="vertical-hover">
-            <i class="ri-record-circle-line"></i>
-        </button>
-    </div>
+        id="vertical-hover">
+    </button>
+</div>
 
     <div id="scrollbar">
         <div class="container-fluid">
@@ -49,6 +49,12 @@
                     <a class="nav-link menu-link {{ request()->routeIs('dashboard.administrator') ? 'text-success' : '' }}"
                         href="{{ route('dashboard.administrator') }}">
                         <i class="ri-user-line"></i> <span data-key="t-Administrator">Administrator</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard.mails') ? 'text-success' : '' }}"
+                        href="{{ route('dashboard.mails') }}">
+                        <i class="ri-mail-line"></i> <span data-key="t-Administrator">Mails</span>
                     </a>
                 </li>
                 <li class="nav-item">

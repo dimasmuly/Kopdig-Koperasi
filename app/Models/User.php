@@ -102,4 +102,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Stash::class);
     }
+
+    public function mail()
+    {
+        return $this->hasMany(Mail::class);
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DuesController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StashController;
@@ -41,4 +42,6 @@ Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(funct
 
     Route::get('dashboard/installment', [InstallmentController::class, 'index'])->name('dashboard.management.installment');
     Route::get('dashboard/dues', [DuesController::class, 'index'])->name('dashboard.management.dues');
+
+    Route::get('dashboard/mails', [MailController::class, 'index'])->name('dashboard.mails');
 });
