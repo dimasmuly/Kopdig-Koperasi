@@ -56,3 +56,4 @@ Route::get('/dues/type/{id}', [DuesController::class, 'getDuesType'])->name('api
 
 Route::post('/mail/store', [MailController::class, 'store'])->name('api.mail.store');
 Route::post('/mail/{id}/update', [MailController::class, 'update'])->name('api.mail.update');
+Route::get('/mail/{id}/delete', [MailController::class, 'delete'])->name('api.mail.delete');

@@ -35,6 +35,8 @@
                         <tbody>
                             @foreach ($mails as $mail)
                                 <tr data-id="{{ $mail['id'] }}" data-user_id="{{ $mail['user_id'] }}"
+                                    data-subject="{{ $mail['subject'] }}"
+                                    data-body="{{ $mail['body'] }}"
                                     data-name="{{ $mail['name'] }}" data-is_read="{{ $mail['is_read'] }}"
                                     data-status="{{ $mail['status'] }}" data-created_at="{{ $mail['created_at'] }}">
                                     <td>{{ $loop->iteration }}</td>
@@ -74,8 +76,7 @@
                                                             class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit</a></li>
                                                 <li>
-                                                    <a class="dropdown-item remove-item-btn delete-item-btn"
-                                                        data-id="{{ $mail['id'] }}">
+                                                    <a href="/api/mail/{{ $mail['id'] }}/delete" class="dropdown-item remove-item-btn delete-item-btn" onclick="return(confirm('Are you sure?'))">
                                                         <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                                                         Delete
                                                     </a>
@@ -172,9 +173,18 @@
                 var status = $(this).closest('tr').data('status');
                 var is_read = $(this).closest('tr').data('is_read');
 
+                $('#subject').val(subject);
+                $('#body').val(body);
+                $('#user_id').val(user_id);
+                $('#user_id').attr('disabled', true);
+                $('#status_read').val(status).trigger('change');
+                $('#is_read').val(is_read);
+
                 $('#mailModal .modal-body form').attr('action', '/api/mail/' + id + '/update');
                 $('#status_read').removeAttr('disabled');
                 $('#is_read').val(1);
+
+                $('#mailModal .modal-footer button[type="submit"]').text('Update');
             });
         });
     </script>

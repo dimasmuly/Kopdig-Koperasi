@@ -39,4 +39,10 @@ class MailController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
+
+    public function delete($id)
+    {
+        Mail::find($id)->delete();
+        return back()->with('success', 'Mail deleted successfully');
+    }
 }
