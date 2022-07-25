@@ -32,16 +32,12 @@ Route::middleware(['middleware' => 'auth', 'check-role:2,3,5,6,7'])->group(funct
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/market', [MarketController::class, 'index'])->name('dashboard.market');
     Route::get('/market/{id}/products', [MarketController::class, 'products'])->name('dashboard.market.products');
-
     Route::get('dashboard/order', [OrderController::class, 'index'])->name('dashboard.order');
-
     Route::get('dashboard/administrator', [AdministratorController::class, 'index'])->name('dashboard.administrator');
     Route::post('dashboard/administrator/search', [AdminController::class, 'search'])->name('dashboard.admin.search');
     Route::get('dashboard/stash', [StashController::class, 'index'])->name('dashboard.management.stash');
     Route::get('dashboard/loans', [LoanController::class, 'index'])->name('dashboard.management.loans');
-
     Route::get('dashboard/installment', [InstallmentController::class, 'index'])->name('dashboard.management.installment');
     Route::get('dashboard/dues', [DuesController::class, 'index'])->name('dashboard.management.dues');
-
     Route::get('dashboard/mails', [MailController::class, 'index'])->name('dashboard.mails');
 });

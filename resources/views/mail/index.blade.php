@@ -11,8 +11,29 @@
 
     <div class="row mb-3 justify-content-between">
         <div class="col-md">
-            <button class="btn btn-primary add-item-btn" data-bs-toggle="modal" data-bs-target="#mailModal">Add New
-                Mails</button>
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <button class="btn btn-primary add-item-btn" data-bs-toggle="modal" data-bs-target="#mailModal">Add New
+                        Mails</button>
+                </div>
+                <div class="col">
+                    <div class="d-flex text-center flex-wrap gap-4 ms-auto">
+                        <div class="pe-3">
+                            <h6 class="mb-2 text-truncate text-muted">Total Mails</h6>
+                            <h5 class="mb-0" id="total_mails"></h5>
+
+                        </div>
+                        <div class="pe-3">
+                            <h6 class="mb-2 text-muted">Approved</h6>
+                            <h5 class="text-success mb-0" id="total_approved_mails"></h5>
+                        </div>
+                        <div class="pe-3">
+                            <h6 class="mb-2 text-muted">Rejected</h6>
+                            <h5 class="text-danger mb-0" id="total_rejected_mails"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
             <input type="text" class="form-control" name="search_field" id="search_field" placeholder="Search mail..">
@@ -194,6 +215,18 @@
                         .toLowerCase()) > -1);
                 });
             })
+
+            $total_mails = $('#table-mails tbody tr').length;
+            $total_approved_mails = $('#table-mails tbody tr').filter(function() {
+                return $(this).data('status') == 'approved';
+            }).length;
+            $total_rejected_mails = $('#table-mails tbody tr').filter(function() {
+                return $(this).data('status') == 'rejected';
+            }).length;
+
+            $('#total_mails').text($total_mails);
+            $('#total_approved_mails').text($total_approved_mails);
+            $('#total_rejected_mails').text($total_rejected_mails);
         });
     </script>
 @endsection
