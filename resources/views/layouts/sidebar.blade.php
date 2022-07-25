@@ -49,7 +49,10 @@
                         </a>
                     </li>
                 @endif
-                @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7 || Auth::user()->role_id == 5)
+                @if (Auth::user()->role_id == 2 ||
+                    Auth::user()->role_id == 6 ||
+                    Auth::user()->role_id == 7 ||
+                    Auth::user()->role_id == 5)
                     <li class="nav-item">
                         <a class="nav-link menu-link {{ request()->routeIs('dashboard.administrator') ? 'text-success' : '' }}"
                             href="{{ route('dashboard.administrator') }}">

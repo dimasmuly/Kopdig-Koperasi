@@ -19,12 +19,18 @@ class DuesController extends Controller
         $dues = DB::select($dues);
         $dues = json_decode(json_encode($dues), true);
 
+        $total_dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $total_dues = DB::select($total_dues);
+        $total_dues = json_decode(json_encode($total_dues), true)[0]['total_balance'];
+
         return view('dues.index', [
             'user' => auth()->user(),
             'title' => 'Dues',
             'dues' => $dues,
             'members' => User::where('cooperative_id', Auth::user()->cooperative_id)->get(),
             'dues_types' => DuesType::all(),
+            'total_balance' => $total_dues,
         ]);
     }
 }

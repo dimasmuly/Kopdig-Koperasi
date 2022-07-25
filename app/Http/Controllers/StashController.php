@@ -21,11 +21,17 @@ class StashController extends Controller
         $last_stash = Stash::where('user_id', Auth::user()->id)->orderBy('stash_date', 'desc')->first();
         $current_balance = $last_stash->ending_balance;
 
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
+
         return view('stash.index', [
             'user' => Auth::user(),
             'title' => 'Stash',
             'stashes' => $stashes,
             'current_balance' => $current_balance,
+            'total_balance' => $dues,
         ]);
     }
 }

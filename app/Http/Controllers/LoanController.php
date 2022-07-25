@@ -44,11 +44,17 @@ class LoanController extends Controller
         $loans = DB::select($loans);
         $loans = json_decode(json_encode($loans), true);
 
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
+
         return view('loan.index', [
             'user' => auth()->user(),
             'title' => 'Loans',
             'loans' => $loans,
-            'loan_types' => $loan_types
+            'loan_types' => $loan_types,
+            'total_balance' => $dues,
         ]);
     }
 }

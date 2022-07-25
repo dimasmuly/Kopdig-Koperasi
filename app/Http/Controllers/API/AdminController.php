@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AdminController extends Controller
@@ -125,12 +127,17 @@ class AdminController extends Controller
             ['name', 'like', '%' . $request->keyword . '%'],
             ['cooperative_id', $request->cooperative_id],
         ])->get();
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
         return view('administrator.index', [
             'user' => $user,
             'title' => $title,
             'cooperative_id' => $user->cooperative_id,
             'administrators' => $administrators,
-            'roles' => $roles
+            'roles' => $roles,
+            'total_balance' => $dues,
         ]);
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TransactionDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -59,6 +61,11 @@ class DashboardController extends Controller
             $total_order_this_month_percentage = number_format($total_order_this_month_percentage, 2);
         }
 
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
+
         return view('dashboard.index', [
             'title' => $title,
             'user' => $user,
@@ -67,6 +74,7 @@ class DashboardController extends Controller
             'percentage_revenue' => $total_pay_out_this_month_percentage,
             'total_order' => $total_order,
             'percentage_order' => $total_order_this_month_percentage,
+            'total_balance' => $dues,
         ]);
     }
 }

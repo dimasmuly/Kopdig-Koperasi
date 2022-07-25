@@ -10,6 +10,7 @@ use App\Models\TransactionDetail;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MarketController extends Controller
 {
@@ -35,7 +36,10 @@ class MarketController extends Controller
             ]);
         })->get();
 
-        // return $businesses;
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
 
         $total_business = BusinessDetail::where('cooperative_id', $user->cooperative_id)->count();
         return view('market.index', [
@@ -45,6 +49,7 @@ class MarketController extends Controller
             'total_order' => $total_order,
             'total_business' => $total_business,
             'businesses' => $businesses,
+            'total_balance' => $dues,
         ]);
     }
 
@@ -66,6 +71,11 @@ class MarketController extends Controller
             $product->ratingValue = $product->ratings()->avg('rating_value') ?? 0;
         });
 
+        $dues = DB::raw("SELECT sum(dues.total_pay) as 'total_balance' FROM `dues`,`users`, `cooperatives` WHERE dues.user_id = users.id AND users.cooperative_id = cooperatives.id AND users.cooperative_id = " . Auth::user()->cooperative_id);
+
+        $dues = DB::select($dues);
+        $dues = json_decode(json_encode($dues), true)[0]['total_balance'];
+
         return view('market.products', [
             'title' => $title,
             'user' => $user,
@@ -73,6 +83,7 @@ class MarketController extends Controller
             'business_detail_id' => $id,
             'product_categories' => ProductCategory::all(),
             'vouchers' => Voucher::all() ?? [],
+            'total_balance' => $dues,
         ]);
     }
 }
